@@ -24,12 +24,12 @@ const Cart = (): JSX.Element => {
     // TODO
   }))
 
-  const total = 400
-  // formatPrice(
-  //   cart.reduce((sumTotal, product) => {
-
-  //   }, 0)
-  // )
+  const total = formatPrice(
+    cart.reduce((sumTotal, product) => {
+      sumTotal += (product.price * product.amount);
+      return sumTotal;
+    }, 0)
+  )
 
   function handleProductIncrement(product: Product) {
     // TODO
@@ -94,7 +94,11 @@ const Cart = (): JSX.Element => {
                     </div>
                   </td>
                   <td>
-                    <strong>{product.price * product.amount}</strong>
+                    <strong>{
+                      formatPrice(
+                        product.price * product.amount
+                      )
+                    }</strong>
                   </td>
                   <td>
                     <button

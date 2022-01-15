@@ -69,6 +69,16 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     amount,
   }: UpdateProductAmount) => {
     try {
+      const item = cart.find(product => product.id == productId)
+      console.log('incrementar: ', item)
+      console.log('cart: ', cart)
+
+      cart.forEach((product, index) => {
+        if (product.id == productId) {
+          !product.amount ? product.amount = amount : product.amount += amount;
+        }
+        console.log('produto', product)
+      })
       // TODO
     } catch {
       // TODO

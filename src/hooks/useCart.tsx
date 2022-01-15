@@ -40,12 +40,12 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       const response = api(`products/${productId}`);
       const product: Product = (await response).data
 
-      const item = cart.find(product => product.id == productId);
-      if (item) {
-        updateProductAmount({ amount: 1, productId });
-      } else {
-        setCart([...cart, product]);
-      }
+      !product.amount ? product.amount = 2 : product.amount = product.amount;
+
+      const haveInCart = cart.find(product => product.id == productId);
+      haveInCart ? updateProductAmount({ amount: 2, productId }) :
+        updateProductAmount({ amount: 2, productId })
+          .then(() => setCart([...cart, product]));
     } catch {
       // TODO
     }
@@ -69,17 +69,11 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     amount,
   }: UpdateProductAmount) => {
     try {
-      const item = cart.find(product => product.id == productId)
-      console.log('incrementar: ', item)
-      console.log('cart: ', cart)
-
-      cart.forEach((product, index) => {
+      cart.forEach((product) => {
         if (product.id == productId) {
           !product.amount ? product.amount = amount : product.amount += amount;
         }
-        console.log('produto', product)
       })
-      // TODO
     } catch {
       // TODO
     }

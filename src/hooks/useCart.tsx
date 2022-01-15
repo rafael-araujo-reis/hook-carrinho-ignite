@@ -40,7 +40,12 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       const response = api(`products/${productId}`);
       const product: Product = (await response).data
 
-      setCart([...cart, product])
+      const item = cart.find(product => product.id == productId);
+      if (item) {
+        updateProductAmount({ amount: 1, productId });
+      } else {
+        setCart([...cart, product]);
+      }
     } catch {
       // TODO
     }
@@ -48,7 +53,12 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   const removeProduct = (productId: number) => {
     try {
-      // TODO
+      cart.forEach((product, index) => {
+        if (product.id == productId) {
+          cart.splice(index, 1);
+          setCart([...cart]);
+        }
+      })
     } catch {
       // TODO
     }

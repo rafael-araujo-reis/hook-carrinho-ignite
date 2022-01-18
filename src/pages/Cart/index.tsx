@@ -66,14 +66,14 @@ const Cart = (): JSX.Element => {
                   </td>
                   <td>
                     <strong>{product.title}</strong>
-                    <span>{product.price}</span>
+                    <span>{formatPrice(product.price)}</span>
                   </td>
                   <td>
                     <div>
                       <button
                         type="button"
                         data-testid="decrement-product"
-                        disabled={product.amount <= 1}
+                        disabled={product.amount <= 2}
                         onClick={() => handleProductDecrement(product)}
                       >
                         <MdRemoveCircleOutline size={20} />

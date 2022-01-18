@@ -5,6 +5,7 @@ import { ProductList } from './styles';
 import { api } from '../../services/api';
 import { formatPrice } from '../../util/format';
 import { useCart } from '../../hooks/useCart';
+import { QNTD_CALCULO } from '../../constantes';
 
 interface Product {
   id: number;
@@ -63,7 +64,7 @@ const Home = (): JSX.Element => {
               >
                 <div data-testid="cart-product-quantity">
                   <MdAddShoppingCart size={16} color="#FFF" />
-                  {/* {cartItemsAmount[product.id] || 0} 2 */}
+                  { /*{cartItemsAmount[product.id] ||*/ QNTD_CALCULO }
                 </div>
 
                 <span>ADICIONAR AO CARRINHO</span>

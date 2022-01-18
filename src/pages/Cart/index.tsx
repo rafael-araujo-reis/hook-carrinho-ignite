@@ -4,6 +4,7 @@ import {
   MdAddCircleOutline,
   MdRemoveCircleOutline,
 } from 'react-icons/md';
+import { QNTD_CALCULO } from '../../constantes';
 
 import { useCart } from '../../hooks/useCart';
 import { formatPrice } from '../../util/format';
@@ -73,7 +74,7 @@ const Cart = (): JSX.Element => {
                       <button
                         type="button"
                         data-testid="decrement-product"
-                        disabled={product.amount <= 2}
+                        disabled={product.amount <= QNTD_CALCULO}
                         onClick={() => handleProductDecrement(product)}
                       >
                         <MdRemoveCircleOutline size={20} />

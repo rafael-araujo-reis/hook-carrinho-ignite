@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import { QNTD_CALCULO } from '../constantes';
 import { api } from '../services/api';
 import { Product, Stock } from '../types';
 
@@ -39,7 +40,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
   useEffect(() =>{
     console.log('item inserido no carrinho')
     localStorage.setItem('@RocketShoes: cart', JSON.stringify(cart));
-  }, [cart])
+  }, [...cart])
 
   const addProduct = async (productId: number) => {
     try {
@@ -49,7 +50,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       !product.amount ? product.amount = 2 : product.amount = product.amount;
 
       const haveInCart = cart.find(product => product.id == productId);
-      haveInCart ? updateProductAmount({ amount: 2, productId }) :
+      haveInCart ? updateProductAmount({ amount: QNTD_CALCULO, productId }) :
         updateProductAmount({ amount: 2, productId })
           .then(() => setCart([...cart, product]));
     } catch {

@@ -2,7 +2,7 @@ import { createContext, ReactNode, useContext, useEffect, useState } from 'react
 // import { toast } from 'react-toastify';
 import { QNTD_CALCULO } from '../constantes';
 import { api } from '../services/api';
-import { Product, Stock } from '../types';
+import { Product, /*Stock*/ } from '../types';
 
 interface CartProviderProps {
   children: ReactNode;
@@ -27,8 +27,6 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
   const [cart, setCart] = useState<Product[]>(() => {
     const storagedCart = localStorage.getItem('@RocketShoes: cart');
 
-    console.log(storagedCart)
-
     if (storagedCart) {
       console.log(JSON.parse(storagedCart))
       return JSON.parse(storagedCart);
@@ -37,19 +35,19 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     return [];
   });
 
-  useEffect(() =>{
-    console.log('item inserido no carrinho')
+  useEffect(() => {
     localStorage.setItem('@RocketShoes: cart', JSON.stringify(cart));
-  }, [...cart])
+    console.log('item inserido no storage')
+  }, [cart])
 
   const addProduct = async (productId: number) => {
     try {
       const response = api(`products/${productId}`);
       const product: Product = (await response).data
 
-      !product.amount ? product.amount = 2 : product.amount = product.amount;
+      !product.amount ? product.amount = QNTD_CALCULO : product.amount += product.amount;
 
-      const haveInCart = cart.find(product => product.id == productId);
+      const haveInCart = cart.find(product => product.id === productId);
       haveInCart ? updateProductAmount({ amount: QNTD_CALCULO, productId }) :
         updateProductAmount({ amount: 2, productId })
           .then(() => setCart([...cart, product]));
@@ -61,7 +59,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
   const removeProduct = (productId: number) => {
     try {
       cart.forEach((product, index) => {
-        if (product.id == productId) {
+        if (product.id === productId) {
           cart.splice(index, 1);
           setCart([...cart]);
         }
@@ -77,7 +75,9 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
   }: UpdateProductAmount) => {
     try {
       cart.forEach((product) => {
-        if (product.id == productId) {
+        if (product.id === productId) {
+          console.log('amount', amount)
+          console.log(product)
           !product.amount ? product.amount = amount : product.amount += amount;
         }
       })

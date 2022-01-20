@@ -16,7 +16,7 @@ export const ProductList = styled.ul`
 
     img {
       align-self: center;
-      max-width: 250px;
+      max-width: 200px;
     }
 
     > strong {
@@ -43,6 +43,7 @@ export const ProductList = styled.ul`
       display: flex;
       align-items: center;
       transition: background 0.2s;
+      font-size: 0.8rem;
 
       &:hover {
         background: ${darken(0.06, '#7159c1')};

@@ -18,13 +18,13 @@ interface ProductFormatted extends Product {
   priceFormatted: string;
 }
 
-interface CartItemsAmount {
-  [key: number]: number;
-}
+// interface CartItemsAmount {
+//   [key: number]: number;
+// }
 
 const Home = (): JSX.Element => {
   const [products, setProducts] = useState<ProductFormatted[]>([]);
-  const { addProduct, cart } = useCart();
+  const { addProduct, /*cart*/ } = useCart();
 
   // const cartItemsAmount = cart.reduce((sumAmount, product) => {
   //   // TODO
@@ -64,7 +64,7 @@ const Home = (): JSX.Element => {
               >
                 <div data-testid="cart-product-quantity">
                   <MdAddShoppingCart size={16} color="#FFF" />
-                  { /*{cartItemsAmount[product.id] ||*/ QNTD_CALCULO }
+                  { /*{cartItemsAmount[product.id] ||*/ QNTD_CALCULO}
                 </div>
 
                 <span>ADICIONAR AO CARRINHO</span>

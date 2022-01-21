@@ -1,8 +1,8 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { QNTD_CALCULO } from '../constantes';
 import { api } from '../services/api';
-import { Product, /*Stock*/ } from '../types';
+import { Product, Stock } from '../types';
 
 interface CartProviderProps {
   children: ReactNode;
@@ -28,7 +28,6 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     const storagedCart = localStorage.getItem('@RocketShoes: cart');
 
     if (storagedCart) {
-      console.log(JSON.parse(storagedCart))
       return JSON.parse(storagedCart);
     }
 
@@ -37,7 +36,6 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   useEffect(() => {
     localStorage.setItem('@RocketShoes: cart', JSON.stringify(cart));
-    console.log('item inserido no storage')
   }, [cart])
 
   const addProduct = async (productId: number) => {
@@ -45,14 +43,32 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       const response = api(`products/${productId}`);
       const product: Product = (await response).data
 
+      const responseStock = api(`stock/${productId}`);
+      const stock: Stock = (await responseStock).data;
+
+
+
+
+
       !product.amount ? product.amount = QNTD_CALCULO : product.amount += product.amount;
 
+
+
+      // console.log('stock: ', stock)
+      // console.log('amount: ', product.amount)
+
+
       const haveInCart = cart.find(product => product.id === productId);
+
       haveInCart ? updateProductAmount({ amount: QNTD_CALCULO, productId }) :
+
         updateProductAmount({ amount: 2, productId })
           .then(() => setCart([...cart, product]));
+
     } catch {
       // TODO
+      // RAFAEL VERIRICAR O ESTOQUE
+      toast.error('RAFAEL DEU ERRO')
     }
   };
 
@@ -64,8 +80,11 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
           setCart([...cart]);
         }
       })
+      toast.error("Erro na remoção do produto");
+      toast.info('passsou')
     } catch {
       // TODO
+      toast.error("Erro na remoção do produto")
     }
   };
 
@@ -74,15 +93,25 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     amount,
   }: UpdateProductAmount) => {
     try {
+      const responseStock = api(`stock/${productId}`);
+      const stock: Stock = (await responseStock).data;
+
       cart.forEach((product) => {
         if (product.id === productId) {
-          console.log('amount', amount)
-          console.log(product)
-          !product.amount ? product.amount = amount : product.amount += amount;
+          if (product.amount < stock.amount) {
+            !product.amount ? product.amount = amount : product.amount += amount;
+          } else if (product.amount >= stock.amount && amount === -QNTD_CALCULO) {
+            !product.amount ? product.amount = amount : product.amount += amount;
+          }
+          else {
+            console.log('tratar erros')
+          }
+          setCart([...cart]);
         }
       })
     } catch {
       // TODO
+      toast.error('RAFAEL DEU ERRO')
     }
   };
 

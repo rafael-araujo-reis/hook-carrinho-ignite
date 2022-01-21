@@ -1,1 +1,1 @@
-export const QNTD_CALCULO: number = 2;
+export const QNTD_CALCULO: number = 1;

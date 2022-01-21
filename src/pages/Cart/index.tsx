@@ -21,9 +21,10 @@ interface Product {
 const Cart = (): JSX.Element => {
   const { cart, removeProduct, updateProductAmount } = useCart();
 
-  const cartFormatted = cart.map(product => ({
-    // TODO
-  }))
+  // const cartFormatted = cart.map(product => ({
+  //   // TODO
+  // Deve formatar o carrinho adicionando os campos priceFormatted (preço do produto) e subTotal (preço do produto multiplicado pela quantidade) ambos devidamente formatados com o utils/format
+  // }))
 
   const total = formatPrice(
     cart.reduce((sumTotal, product) => {
@@ -33,15 +34,16 @@ const Cart = (): JSX.Element => {
   )
 
   function handleProductIncrement(product: Product) {
-    // TODO
+    // Deve diminuir em 1 unidade a quantidade do produto escolhido ao carrinho, onde o valor mínimo é 1 (nesse caso o botão deve estar desativado).
+    updateProductAmount({ productId: product.id, amount: QNTD_CALCULO })
   }
 
   function handleProductDecrement(product: Product) {
-    // TODO
+    updateProductAmount({ productId: product.id, amount: -QNTD_CALCULO })
   }
 
   function handleRemoveProduct(productId: number) {
-    // TODO
+    removeProduct(productId);
   }
 
   return (

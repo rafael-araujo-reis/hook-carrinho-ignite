@@ -43,6 +43,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       const response = api(`products/${productId}`);
       const product: Product = (await response).data
 
+      console.log(product.id)
 
       !product.amount ? product.amount = QNTD_CALCULO : product.amount += product.amount;
 

@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { MdAddShoppingCart } from 'react-icons/md';
 
 import { ProductList } from './styles';
 import { api } from '../../services/api';
 import { formatPrice } from '../../util/format';
 import { useCart } from '../../hooks/useCart';
-import { QNTD_CALCULO } from '../../constantes';
+import { QNTD_CALCULO } from '../../util/constantes';
+
 
 interface Product {
   id: number;
@@ -18,17 +19,13 @@ interface ProductFormatted extends Product {
   priceFormatted: string;
 }
 
-// interface CartItemsAmount {
-//   [key: number]: number;
-// }
+interface CartItemsAmount {
+  [key: number]: number;
+}
 
 const Home = (): JSX.Element => {
   const [products, setProducts] = useState<ProductFormatted[]>([]);
-  const { addProduct, /*cart*/ } = useCart();
-
-  // const cartItemsAmount = cart.reduce((sumAmount, product) => {
-  //   // TODO
-  // }, {} as CartItemsAmount)
+  const { addProduct, cart } = useCart();
 
   useEffect(() => {
     async function loadProducts() {
@@ -64,7 +61,8 @@ const Home = (): JSX.Element => {
               >
                 <div data-testid="cart-product-quantity">
                   <MdAddShoppingCart size={16} color="#FFF" />
-                  { /*{cartItemsAmount[product.id] ||*/ QNTD_CALCULO}
+
+                  {`0${QNTD_CALCULO}`}
                 </div>
 
                 <span>ADICIONAR AO CARRINHO</span>

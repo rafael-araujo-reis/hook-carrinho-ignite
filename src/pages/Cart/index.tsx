@@ -1,10 +1,9 @@
-import React from 'react';
 import {
   MdDelete,
   MdAddCircleOutline,
   MdRemoveCircleOutline,
 } from 'react-icons/md';
-import { QNTD_CALCULO } from '../../constantes';
+import { QNTD_CALCULO } from '../../util/constantes';
 
 import { useCart } from '../../hooks/useCart';
 import { formatPrice } from '../../util/format';
@@ -21,11 +20,6 @@ interface Product {
 const Cart = (): JSX.Element => {
   const { cart, removeProduct, updateProductAmount } = useCart();
 
-  // const cartFormatted = cart.map(product => ({
-  //   // TODO
-  // Deve formatar o carrinho adicionando os campos priceFormatted (preço do produto) e subTotal (preço do produto multiplicado pela quantidade) ambos devidamente formatados com o utils/format
-  // }))
-
   const total = formatPrice(
     cart.reduce((sumTotal, product) => {
       sumTotal += (product.price * product.amount);
@@ -34,7 +28,6 @@ const Cart = (): JSX.Element => {
   )
 
   function handleProductIncrement(product: Product) {
-    // Deve diminuir em 1 unidade a quantidade do produto escolhido ao carrinho, onde o valor mínimo é 1 (nesse caso o botão deve estar desativado).
     updateProductAmount({ productId: product.id, amount: QNTD_CALCULO })
   }
 

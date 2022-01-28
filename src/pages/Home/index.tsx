@@ -32,14 +32,18 @@ const Home = (): JSX.Element => {
     newSumAmount[product.id] = product.amount;
 
     return newSumAmount;
-  }, {} as CartItemsAmount)
+  }, {} as CartItemsAmount);
 
   useEffect(() => {
     async function loadProducts() {
-      const response = api('products');
-      const products = (await response).data
-      setProducts(products)
-    }
+      const response = await api.get<Product[]>('products');
+      const data = response.data.map(product => ({
+        ...product,
+        priceFormatted: formatPrice(product.price)
+      }));
+
+      setProducts(data);
+    };
 
     loadProducts();
   }, []);
@@ -51,16 +55,12 @@ const Home = (): JSX.Element => {
   return (
     <ProductList>
       {
-        products.map((product: Product) => {
+        products.map(product => {
           return (
             <li key={product.id}>
               <img src={product.image} alt={product.title} />
               <strong>{product.title}</strong>
-              <span>{
-                formatPrice(
-                  product.price
-                )
-              }</span>
+              <span>{product.priceFormatted}</span>
               <button
                 type="button"
                 data-testid="add-product-button"
@@ -75,7 +75,7 @@ const Home = (): JSX.Element => {
                 <span>ADICIONAR AO CARRINHO</span>
               </button>
             </li>
-          )
+          );
         })
       }
     </ProductList >

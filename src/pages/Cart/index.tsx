@@ -31,14 +31,14 @@ const Cart = (): JSX.Element => {
       sumTotal += (product.price * product.amount);
       return sumTotal;
     }, 0)
-  )
+  );
 
   function handleProductIncrement(product: Product) {
-    updateProductAmount({ productId: product.id, amount: QNTD_CALCULO })
+    updateProductAmount({ productId: product.id, amount: 2 });
   }
 
   function handleProductDecrement(product: Product) {
-    updateProductAmount({ productId: product.id, amount: -QNTD_CALCULO })
+    updateProductAmount({ productId: product.id, amount: 2 });
   }
 
   function handleRemoveProduct(productId: number) {
@@ -108,7 +108,7 @@ const Cart = (): JSX.Element => {
                     </button>
                   </td>
                 </tr>
-              )
+              );
             })
           }
         </tbody>

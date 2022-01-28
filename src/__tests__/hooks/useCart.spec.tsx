@@ -119,10 +119,10 @@ describe('useCart Hook', () => {
         },
       ])
     );
-    // expect(mockedSetItemLocalStorage).toHaveBeenCalledWith(
-    //   '@RocketShoes:cart',
-    //   JSON.stringify(result.current.cart)
-    // );
+    expect(mockedSetItemLocalStorage).toHaveBeenCalledWith(
+      '@RocketShoes:cart',
+      JSON.stringify(result.current.cart)
+    );
   });
 
   it('should not be able add a product that does not exist', async () => {
@@ -141,17 +141,17 @@ describe('useCart Hook', () => {
 
     await waitFor(
       () => {
-        // expect(mockedToastError).toHaveBeenCalledWith(
-        //   'Erro na adição do produto'
-        // );
+        expect(mockedToastError).toHaveBeenCalledWith(
+          'Erro na adição do produto'
+        );
       },
-      // { timeout: 2000 }
+      { timeout: 2000 }
     );
 
     expect(result.current.cart).toEqual(
       expect.arrayContaining(initialStoragedData)
     );
-    // expect(mockedSetItemLocalStorage).not.toHaveBeenCalled();
+    expect(mockedSetItemLocalStorage).not.toHaveBeenCalled();
   });
 
   it('should be able to increase a product amount when adding a product that already exists on cart', async () => {
@@ -199,10 +199,10 @@ describe('useCart Hook', () => {
         },
       ])
     );
-    // expect(mockedSetItemLocalStorage).toHaveBeenCalledWith(
-    //   '@RocketShoes:cart',
-    //   JSON.stringify(result.current.cart)
-    // );
+    expect(mockedSetItemLocalStorage).toHaveBeenCalledWith(
+      '@RocketShoes:cart',
+      JSON.stringify(result.current.cart)
+    );
   });
 
   it('should not be able to increase a product amount when running out of stock', async () => {
@@ -241,7 +241,7 @@ describe('useCart Hook', () => {
     expect(result.current.cart).toEqual(
       expect.arrayContaining(initialStoragedData)
     );
-    // expect(mockedSetItemLocalStorage).not.toHaveBeenCalled();
+    expect(mockedSetItemLocalStorage).not.toHaveBeenCalled();
   });
 
   it('should be able to remove a product', () => {
@@ -267,10 +267,10 @@ describe('useCart Hook', () => {
         },
       ])
     );
-    // expect(mockedSetItemLocalStorage).toHaveBeenCalledWith(
-    //   '@RocketShoes:cart',
-    //   JSON.stringify(result.current.cart)
-    // );
+    expect(mockedSetItemLocalStorage).toHaveBeenCalledWith(
+      '@RocketShoes:cart',
+      JSON.stringify(result.current.cart)
+    );
   });
 
   it('should not be able to remove a product that does not exist', () => {
@@ -284,11 +284,11 @@ describe('useCart Hook', () => {
       result.current.removeProduct(productId);
     });
 
-    // expect(mockedToastError).toHaveBeenCalledWith('Erro na remoção do produto');
+    expect(mockedToastError).toHaveBeenCalledWith('Erro na remoção do produto');
     expect(result.current.cart).toEqual(
       expect.arrayContaining(initialStoragedData)
     );
-    // expect(mockedSetItemLocalStorage).not.toHaveBeenCalled();
+    expect(mockedSetItemLocalStorage).not.toHaveBeenCalled();
   });
 
   it('should be able to update a product amount', async () => {
@@ -309,30 +309,30 @@ describe('useCart Hook', () => {
 
     await waitForNextUpdate({ timeout: 200 });
 
-    // expect(result.current.cart).toEqual(
-    //   expect.arrayContaining([
-    //     {
-    //       id: 1,
-    //       amount: 2,
-    //       image:
-    //         'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-    //       price: 179.9,
-    //       title: 'Tênis de Caminhada Leve Confortável',
-    //     },
-    //     {
-    //       id: 2,
-    //       amount: 2,
-    //       image:
-    //         'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis2.jpg',
-    //       price: 139.9,
-    //       title: 'Tênis VR Caminhada Confortável Detalhes Couro Masculino',
-    //     },
-    //   ])
-    // );
-    // expect(mockedSetItemLocalStorage).toHaveBeenCalledWith(
-    //   '@RocketShoes:cart',
-    //   JSON.stringify(result.current.cart)
-    // );
+    expect(result.current.cart).toEqual(
+      expect.arrayContaining([
+        {
+          id: 1,
+          amount: 2,
+          image:
+            'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
+          price: 179.9,
+          title: 'Tênis de Caminhada Leve Confortável',
+        },
+        {
+          id: 2,
+          amount: 2,
+          image:
+            'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis2.jpg',
+          price: 139.9,
+          title: 'Tênis VR Caminhada Confortável Detalhes Couro Masculino',
+        },
+      ])
+    );
+    expect(mockedSetItemLocalStorage).toHaveBeenCalledWith(
+      '@RocketShoes:cart',
+      JSON.stringify(result.current.cart)
+    );
   });
 
   it('should not be able to update a product that does not exist', async () => {
@@ -360,7 +360,7 @@ describe('useCart Hook', () => {
     expect(result.current.cart).toEqual(
       expect.arrayContaining(initialStoragedData)
     );
-    // expect(mockedSetItemLocalStorage).not.toHaveBeenCalled();
+    expect(mockedSetItemLocalStorage).not.toHaveBeenCalled();
   });
 
   it('should not be able to update a product amount when running out of stock', async () => {
@@ -391,7 +391,7 @@ describe('useCart Hook', () => {
     expect(result.current.cart).toEqual(
       expect.arrayContaining(initialStoragedData)
     );
-    // expect(mockedSetItemLocalStorage).not.toHaveBeenCalled();
+    expect(mockedSetItemLocalStorage).not.toHaveBeenCalled();
   });
 
   it('should not be able to update a product amount to a value smaller than 1', async () => {
@@ -420,12 +420,12 @@ describe('useCart Hook', () => {
       expect(result.current.cart).toEqual(
         expect.arrayContaining(initialStoragedData)
       );
-      // expect(mockedSetItemLocalStorage).not.toHaveBeenCalled();
+      expect(mockedSetItemLocalStorage).not.toHaveBeenCalled();
     } catch {
       expect(result.current.cart).toEqual(
         expect.arrayContaining(initialStoragedData)
       );
-      // expect(mockedSetItemLocalStorage).not.toHaveBeenCalled();
+      expect(mockedSetItemLocalStorage).not.toHaveBeenCalled();
     }
   });
 });

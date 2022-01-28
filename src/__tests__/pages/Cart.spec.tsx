@@ -54,10 +54,10 @@ describe('Cart Page', () => {
       amount: 2,
       productId: 1,
     });
-    // expect(mockedUpdateProductAmount).toHaveBeenCalledWith({
-    //   amount: 1,
-    //   productId: 2,
-    // });
+    expect(mockedUpdateProductAmount).toHaveBeenCalledWith({
+      amount: 1,
+      productId: 2,
+    });
 
     mockedUseCartHook.mockReturnValueOnce({
       cart: [

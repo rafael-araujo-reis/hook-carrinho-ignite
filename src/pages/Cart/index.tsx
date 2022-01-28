@@ -3,7 +3,7 @@ import {
   MdAddCircleOutline,
   MdRemoveCircleOutline,
 } from 'react-icons/md';
-import { QNTD_CALCULO } from '../../util/constantes';
+import { ADD_PRODUCT, MIN_CART, QNTD_CALCULO } from '../../util/constantes';
 
 import { useCart } from '../../hooks/useCart';
 import { formatPrice } from '../../util/format';
@@ -34,11 +34,11 @@ const Cart = (): JSX.Element => {
   );
 
   function handleProductIncrement(product: Product) {
-    updateProductAmount({ productId: product.id, amount: 2 });
+    updateProductAmount({ productId: product.id, amount: product.amount + ADD_PRODUCT });
   }
 
   function handleProductDecrement(product: Product) {
-    updateProductAmount({ productId: product.id, amount: 2 });
+    updateProductAmount({ productId: product.id, amount: product.amount - ADD_PRODUCT });
   }
 
   function handleRemoveProduct(productId: number) {
@@ -75,7 +75,7 @@ const Cart = (): JSX.Element => {
                       <button
                         type="button"
                         data-testid="decrement-product"
-                        disabled={product.amount <= QNTD_CALCULO}
+                        disabled={product.amount <= MIN_CART}
                         onClick={() => handleProductDecrement(product)}
                       >
                         <MdRemoveCircleOutline size={20} />
